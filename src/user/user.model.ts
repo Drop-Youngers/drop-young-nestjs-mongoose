@@ -25,6 +25,10 @@ export const UserSchema = new mongoose.Schema({
         type: Date,
         default: new Date(),
     },
+    accountType: {
+        type: String,
+        required: true
+    },
     accountStatus: {
         type: Number,
         default: 0
@@ -39,5 +43,6 @@ export interface User extends mongoose.Document{
     password: string,
     userType: string,
     createdDate: Date,
+    accountType: string,
     accountStatus: number,
 }
