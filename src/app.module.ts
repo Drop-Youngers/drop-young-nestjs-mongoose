@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
+import { MailingService } from './mailing/mailing.service';
+import { MailingModule } from './mailing/mailing.module';
 @Module({
   imports: [
     UserModule,
@@ -11,8 +13,9 @@ import { AuthModule } from './auth/auth.module';
       useFindAndModify: false
     }),
     AuthModule,
+    MailingModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, MailingService],
 })
 export class AppModule {}
