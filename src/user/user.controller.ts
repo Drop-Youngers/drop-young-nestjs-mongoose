@@ -1,7 +1,7 @@
 import { UserService } from './user.service';
 import {Controller,Get,Post, Body, UsePipes, ValidationPipe, HttpCode, Req, Param, UseGuards} from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import {ValidateUserData} from '../utils/validators/user.validator';
+import { userData } from '../utils/validators/user.validator';
 import { AccountType } from 'src/utils/enums/accountTypes.enum';
 
 @Controller('v1/api/users')
@@ -15,7 +15,7 @@ export class UserController {
     @Post('/createUserByEmail')
         @UsePipes(new ValidationPipe({transform: true}))
         createUserByEmail(
-            @Body() data: ValidateUserData
+            @Body() data: userData
         ){  
             return this.userService.signUp(data, AccountType.email);
         }

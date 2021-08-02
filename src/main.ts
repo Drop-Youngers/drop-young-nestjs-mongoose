@@ -11,7 +11,7 @@ async function bootstrap() {
     .setDescription('Notepen backend APIs')
     .setDescription('author:irabestverie2016@gmail.com')
     .setVersion('1.0')
-    .addTag('user')
+    .addTag('users')
     .addTag('document-permission-types')
     .addBearerAuth()
     .build();
