@@ -19,4 +19,9 @@ export class UserController {
         ){  
             return this.userService.signUp(data, AccountType.email);
         }
+
+    @Get('/getAllUsers')
+    getAllUsers(){
+        return this.userService.getAllUsers();
+    }    
 }
