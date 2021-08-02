@@ -1,3 +1,4 @@
+import { gender } from './../utils/enums/gender.enum';
 import { Injectable } from '@nestjs/common';
 import {PassportStrategy} from '@nestjs/passport';
 import {Strategy, VerifyCallback} from 'passport-google-oauth20';
@@ -6,22 +7,22 @@ import {Strategy, VerifyCallback} from 'passport-google-oauth20';
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google'){
     constructor(){
         super({
-            clientID: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            callbackURL: process.env.CALLBACK_URL,
+            clientID: '',
+            clientSecret: '',
+            callbackURL: '', 
             scope: ['email','profile']
         })
     }
 
     async validate(accessToken: string, refleshToken: string, profile: any, done: VerifyCallback): Promise<any>{
-        const {name, emails, gender, photos} = profile;
+        const {name, emails, photos} = profile;
 
         const user = {
             firstname: name.givenName,
             lastname: name.familyName,
             email: emails[0].value,
-            gender: gender,
-            profile: photos[0].value,
+            gender: name.gender,
+            profile_pic: photos[0].value,
             accessToken,
             refleshToken
         }
