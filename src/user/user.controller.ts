@@ -23,5 +23,13 @@ export class UserController {
     @Get('/getAllUsers')
     getAllUsers(){
         return this.userService.getAllUsers();
-    }    
+    }   
+    
+    @Post('/createUserByGoogle')
+    createUserByGoogle(
+        @Body() data: any
+        
+    ){
+        return this.userService.signUpWithGoogle(data);
+    }
 }
