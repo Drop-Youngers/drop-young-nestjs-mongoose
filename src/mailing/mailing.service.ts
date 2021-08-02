@@ -5,7 +5,7 @@ import { VerifyAccount } from 'src/user/verifyAccount.model';
 import { Model } from 'mongoose';
 import { User } from 'src/user/user.model';
 import { AuthService } from 'src/auth/auth.service';
-const {generateRandomCode} = require('../utils/randoms/email-verification-code');
+const {generateRandomCode} = require('../utils/randoms/verificationCode');
 
 @Injectable()
 export class MailingService {
@@ -29,7 +29,7 @@ export class MailingService {
               .sendMail({
                 to: email,
                 from: process.env.EMAIL_USER, 
-                subject: 'Gerand Verification email',
+                subject: 'Notepen Verification email',
                 template: 'emailVerification.index.hbs', 
                 context: { 
                   code: verificationCode.code,
@@ -53,7 +53,7 @@ export class MailingService {
                verificationCode: verificationCode,
                isVerified: false
              }
-             await account.findOneAndUpdate({_id: userId},newData);
+            //  await account.findOneAndUpdate({_id: userId},newData);
              return {
               success: true,
               code: verificationCode
