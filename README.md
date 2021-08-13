@@ -13,7 +13,7 @@ Contributions are always welcome😀!
 - Kindly wait for it to be merged
 - Buy yourself a ☕ if it's merged🎉
 
-## Feautures
+## Features
 
 
 - Authentication with jwt
