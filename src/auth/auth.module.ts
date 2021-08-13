@@ -7,7 +7,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { GoogleStrategy } from './google.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from 'src/user/user.module';
-import { Enum } from 'nestjs-dotenv';
 import dotenv from 'dotenv'
 
 @Module({
