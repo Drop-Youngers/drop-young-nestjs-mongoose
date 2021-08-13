@@ -25,10 +25,13 @@ import {
     gender
 } from 'src/utils/enums/gender.enum';
 
+import { Enum } from 'nestjs-dotenv';
+
 @Injectable()
 export class UserService {
     constructor(@InjectModel('User') private readonly userModel: Model < User > ,
-        private readonly authService: AuthService
+        private readonly authService: AuthService ,
+
     ) {}
 
     async signUp(data: any, accType: AccountType) {
@@ -111,7 +114,7 @@ export class UserService {
         const result = await newUser.save();
         const userPayloads = _.pick(result, ['_id', 'firstname', 'lastname', 'email', 'gender', 'createdDate', 'accountType', 'userType', 'accountStatus']);
 
-        const [payload, access_token] = await this.authService.signToken(userPayloads);
+        const [payload, access_token] = await this.authService.generateAuthToken(userPayloads);
         return {
             success: true,
             message: 'User registered successfully',
@@ -124,4 +127,16 @@ export class UserService {
     async getAllUsers() {
         return await this.userModel.find();
     }
+
+    async findOneUser(id:string):Promise<User>{
+        return await this.userModel.findOne({_id:id});
+      }
+    
+      async updateUser(id:string, User:User): Promise<User>{
+        return await this.userModel.findByIdAndUpdate(id,User, {new:true})
+      }
+    
+      async deleteUser(id:string):Promise<User>{
+        return await this.userModel.findByIdAndRemove(id);
+      }
 }

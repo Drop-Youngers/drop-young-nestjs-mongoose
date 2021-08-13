@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { MailingService } from './mailing/mailing.service';
 import { MailingModule } from './mailing/mailing.module';
+import { SharedModule } from './shared/shared.module';
 @Module({
   imports: [
     UserModule,
@@ -14,6 +15,7 @@ import { MailingModule } from './mailing/mailing.module';
     }),
     AuthModule,
     MailingModule,
+    SharedModule,
   ],
   controllers: [AppController],
   providers: [AppService, MailingService],
