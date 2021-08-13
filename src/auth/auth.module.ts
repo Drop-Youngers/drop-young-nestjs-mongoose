@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { AuthService } from './auth.service';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -5,6 +6,9 @@ import { UserSchema } from 'src/user/user.model';
 import { JwtModule } from '@nestjs/jwt';
 import { GoogleStrategy } from './google.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UserModule } from 'src/user/user.module';
+import { Enum } from 'nestjs-dotenv';
+import dotenv from 'dotenv'
 
 @Module({
     imports: [

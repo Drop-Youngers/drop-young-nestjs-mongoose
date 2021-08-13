@@ -25,8 +25,6 @@ import {
     gender
 } from 'src/utils/enums/gender.enum';
 
-import { Enum } from 'nestjs-dotenv';
-
 @Injectable()
 export class UserService {
     constructor(@InjectModel('User') private readonly userModel: Model < User > ,

@@ -5,6 +5,10 @@ import { Model } from 'mongoose';
 import { User } from 'src/user/user.model';
 import * as argon from 'argon2';
 import * as _ from 'lodash';
+const jwt = require( 'jsonwebtoken' );
+import dotenv from 'dotenv'
+
+
 const { verifyPassword} = require('../utils/hashes/password.hash');
 
 @Injectable()
@@ -16,7 +20,7 @@ export class AuthService {
 
     async emailLogin(email:string, password){
         const user = await this.userModel.findOne({ email: email });
-        if(!user && user.accountStatus==0){
+        if(!user){
             throw new UnauthorizedException('Invalid credentials');
         }
 
@@ -24,24 +28,18 @@ export class AuthService {
         if(!isPasswordValid){
             throw new UnauthorizedException('Invalid credentials');
         }
-
-        const [payload, access_token] = await this.signToken(user);
+        const access_token = await this.generateAuthToken(user);
 
         return {
             success : true,
-            user : payload,
+            payload : user,
             access_token : access_token
         }
     }
 
-    public async signToken(user){
-        try{
-         const payload = await _.pick(user,['_id','firstname','lastname','email','gender','createdDate','accountType','userType','accountStatus'] ) 
-         const access_token = await this.jwtService.sign(payload);
-         return [payload, access_token]
-        }
-       catch(e){
-           throw new InternalServerErrorException(e);
-       }
-    } 
+
+    async generateAuthToken (user) {
+        return jwt.sign({user}, process.env.SECRET_KEY )
+    }
+
 }
